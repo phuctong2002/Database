@@ -29,46 +29,34 @@ public class UserRegisterController implements Initializable {
     @FXML
     public ComboBox<String> addressComboBox;
     @FXML
-    public ComboBox<String> hopistalComboBox;
-    @FXML
     public PasswordField passwordField;
     @FXML
     public TextField idNumber;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gender.getItems().addAll("Male", "Female");
-        String[] address = {"Bach Khoa", "Bach Dang", "Bach Mai", "Cau Den", "Dong Mac", "Dong Nhan", "Dong Tam",
-        "Le Dai Hanh", "Minh Khai", "Nguyen Du", "Pham Dinh Ho", "Pho Hue", "Quynh Loi", "Quynh Mai", "Thanh Luong", "Thanh Nhan", "Truong Dinh", "Vinh Tuy"};
-        addressComboBox.getItems().addAll(address);
-        String[] hospital = {
-                "Quynh Mai", "Bach Mai", "Minh Khai", "Quynh Loi", "Truong Dinh", "Dong Tam", "Le Dai Hanh",
-                "Nguyen Du", "Pham Dinh Ho", "Cau Den", "Pho Hue", "Bach Khoa", "Vinh Tuy", "Thanh Luong",
-                "Bach Dang", "Dong Mac", "Thanh Nhan", "Dong Nhan"
-        };
-        hopistalComboBox.getItems().addAll( hospital);
+//        String[] address = {"Bach Khoa", "Bach Dang", "Bach Mai", "Cau Den", "Dong Mac", "Dong Nhan", "Dong Tam",
+//        "Le Dai Hanh", "Minh Khai", "Nguyen Du", "Pham Dinh Ho", "Pho Hue", "Quynh Loi", "Quynh Mai", "Thanh Luong", "Thanh Nhan", "Truong Dinh", "Vinh Tuy"};
+//        addressComboBox.getItems().addAll(address);
+        String query = "select name from ward";
+        ResultSet rs = null;
+        try {
+            rs = DB.dbExecuteQuery(query);
+            while( rs.next() ) {
+                addressComboBox.getItems().add( rs.getString("name"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
     }
     @FXML
     public void registerAction(){
-//        if( firstNameText.getText() == "" || lastNameText.getText() == "" || mailTextField.getText() == "" || passwordField.getText() == ""){
-//            System.out.println("Nhap day du thong tin");
-//
-//        }
-//        if( gender.getValue() != "Male" || gender.getValue() != "Female"){
-//            System.out.println("Gender");
-//        }
-//        if( addressComboBox.getValue() != null){
-//            System.out.println( addressComboBox.getValue());
-//        }else{
-//            System.out.println("Null nhe");
-//        }
-//        if( dob.getValue() != null){
-//            System.out.println( dob.getValue());
-//        }else{
-//            System.out.println("Null nhe chon ngay sinh di bn oi");
-//        }
         if( firstNameText.getText() == "" || lastNameText.getText() == "" || mailTextField.getText() == "" || passwordField.getText() == "" || idNumber.getText() == ""){
             if( gender.getValue() != "Male" || gender.getValue() != "Female" ){
-                if( addressComboBox.getValue() == null || hopistalComboBox.getValue() == null){
+                if( addressComboBox.getValue() == null){
                     if( dob.getValue() == null ){
                         AlertBox.displayAlert("Please nhap day du thong tin");
                     }
@@ -77,12 +65,12 @@ public class UserRegisterController implements Initializable {
         }else{
             ResultSet rs = null;
             try{
-                String queryStr = "select hos_id from hospital where name = '" + hopistalComboBox.getValue() + "';";
+                String queryStr = "select ward_id from ward where name = '" + addressComboBox.getValue() + "';";
                 rs = DB.dbExecuteQuery( queryStr);
-                String hos_id = null;
+                String ward_id = null;
                 if( rs.next()){
-                    hos_id = rs.getString("hos_id");
-                    System.out.println(hos_id);
+                    ward_id = rs.getString("ward_id");
+                    System.out.println(ward_id);
                 }
                 // thuc hien insert thong tin vao trong  database
                 String first_name = firstNameText.getText();
@@ -93,13 +81,13 @@ public class UserRegisterController implements Initializable {
                 String d = String.valueOf(dob.getValue());
                 String m = mailTextField.getText();
                 String address = addressComboBox.getValue();
-                String hospital = hopistalComboBox.getValue();
+//                String hospital = hopistalComboBox.getValue();
                 String pw = passwordField.getText();
                 String id = idNumber.getText();
 //                System.out.println(  first_name + "\n" + last_name + "\n" + gd +  "\n" + d +  "\n" + m +  "\n" + address +  "\n" + hospital +  "\n" + pw + "\n" + id );
                 // tao query insert nhe
-                queryStr = "insert into patient ( pat_id, hos_id, first_name, last_name, dob, gender, mail, address, password) values"+
-                "('"+ id + "','" + hos_id + "','" + first_name + "','" + last_name + "','" + d + "','" + gd + "','" + m + "','" + address + "','" + pw +"');" ;
+                queryStr = "insert into patient ( pat_id, ward_id, first_name, last_name, dob, gender, mail, password) values"+
+                "('"+ id + "','" + ward_id + "','" + first_name + "','" + last_name + "','" + d + "','" + gd + "','" + m + "','" + pw +"');" ;
                 System.out.println( queryStr);
                 // thuc hien insert nhe
                 if( DB.dbExecuteUpdate( queryStr) == 0){

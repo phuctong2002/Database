@@ -65,10 +65,12 @@ public class ViewScheduleController implements Initializable {
 
     }
     public ResultSet getInfor_pat() throws SQLException, ClassNotFoundException{
-        String queryStr = "SELECT p.pat_id as id, first_name||' '||last_name AS name, dob, injection_time FROM patient p, injection_registration_form f WHERE p.pat_id = f.pat_id ;";
+//        String queryStr = "SELECT p.pat_id as id, first_name||' '||last_name AS name, dob, injection_time FROM patient p, injection_registration_form f WHERE p.pat_id = f.pat_id ;";
+        String query = "select patient.pat_id as id, first_name || ' ' || last_name as name, dob, injection_time from patient inner join ( select * from injection_registration_form where hos_id = '"+HelloApplication.hos_id+"' and injection_time = current_date) as tmp on patient.pat_id = tmp.pat_id ; ";
+
         ResultSet a = null;
         try{
-            a = DB.dbExecuteQuery(queryStr);
+            a = DB.dbExecuteQuery(query);
         }catch (SQLException  e){
             System.out.println("Error in StaticController : " + e.getMessage());
 

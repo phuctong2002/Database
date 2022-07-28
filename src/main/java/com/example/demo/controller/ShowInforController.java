@@ -31,7 +31,7 @@ public class ShowInforController implements Initializable {
         passShow.setText(HelloApplication.pass);
         genderShow.setText(HelloApplication.gender);
         dobShow.setText(HelloApplication.dob);
-        addressShow.setText(HelloApplication.address);
+        addressShow.setText(HelloApplication.ward_name);
 //        hospitalShow.setText(HelloApplication.hospital);
     }
 }

@@ -31,21 +31,32 @@ public class RegisterInjectController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         nameRegister.setText( HelloApplication.name);
         idRegister.setText(HelloApplication.id);
-        String[] hospital = {
-                "Quynh Mai", "Bach Mai", "Minh Khai", "Quynh Loi", "Truong Dinh", "Dong Tam", "Le Dai Hanh",
-                "Nguyen Du", "Pham Dinh Ho", "Cau Den", "Pho Hue", "Bach Khoa", "Vinh Tuy", "Thanh Luong",
-                "Bach Dang", "Dong Mac", "Thanh Nhan", "Dong Nhan"
-        };
-        hospitalRegister.getItems().addAll( hospital);
-        hospitalRegister.setValue( HelloApplication.hospital);
-
+//        String[] hospital = {
+//                "Quynh Mai", "Bach Mai", "Minh Khai", "Quynh Loi", "Truong Dinh", "Dong Tam", "Le Dai Hanh",
+//                "Nguyen Du", "Pham Dinh Ho", "Cau Den", "Pho Hue", "Bach Khoa", "Vinh Tuy", "Thanh Luong",
+//                "Bach Dang", "Dong Mac", "Thanh Nhan", "Dong Nhan"
+//        };
+//        hospitalRegister.getItems().addAll( hospital);
+//        hospitalRegister.setValue( HelloApplication.hospital);
+        String queryStr = "select name from hospital";
+        ResultSet hos = null;
+        try {
+            hos = DB.dbExecuteQuery(queryStr);
+            while( hos.next()) {
+                hospitalRegister.getItems().add(hos.getString("name"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void submitRegister(){
         System.out.println("Form dang ky gui len nhe anh em");
-        String hos_reg = hospitalRegister.getValue();
+        String hos_name = hospitalRegister.getValue();
         String inject_time = String.valueOf(timeRegister.getValue());
-        String queryStr = "select hos_id from hospital where name = '" + hos_reg + "';";
+        String queryStr = "select hos_id from hospital where name = '" + hos_name + "';";
         String hos_id = "";
         try {
             ResultSet hos = DB.dbExecuteQuery(queryStr);

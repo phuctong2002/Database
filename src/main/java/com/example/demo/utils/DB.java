@@ -5,7 +5,7 @@ import java.sql.*;
 public class DB {
     private static String driver = "org.postgresql.Driver";
     private static Connection conn = null;
-    private static String connStr = "jdbc:postgresql://localhost:5432/finaldatabase";
+    private static String connStr = "jdbc:postgresql://localhost:5432/vaccinedb";
     public static void dbConnect() throws ClassNotFoundException, SQLException {
         try{
             Class.forName(driver);

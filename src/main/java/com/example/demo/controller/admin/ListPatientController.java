@@ -57,7 +57,7 @@ public class ListPatientController implements Initializable {
         // list ra hai bang nay voi khoai chu mia no nua
         // bang 1 da duoc  tiem nhe
         try {
-            String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, address, number_injection from patient where number_injection != 0;";
+            String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, ward.name as address, number_injection from patient left join ward on patient.ward_id = ward.ward_id where number_injection != 0;";
             ObservableList<User> userList = FXCollections.observableArrayList();
             ResultSet userPatient = getDeclare(queryStr1);
             User abc;
@@ -96,7 +96,7 @@ public class ListPatientController implements Initializable {
         // bang 2 la chua duoc tiem mui nao
 
         try {
-            String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, address, number_injection from patient where number_injection = 0;";
+            String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, ward.name as address, number_injection from patient  left join ward on patient.ward_id = ward.ward_id where number_injection = 0;";
             ObservableList<User> userList = FXCollections.observableArrayList();
             ResultSet userPatient = getDeclare(queryStr1);
             User abc;
@@ -142,8 +142,10 @@ public class ListPatientController implements Initializable {
             AlertBox.displayAlert("Chon dia diem");
         }else{
             String addr = addressPatient.getValue();
+            // find ward_id nhe
+
             try {
-                String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, address, number_injection from patient where number_injection != 0 and address = '"+ addr + "';";
+                String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, ward.name as address, number_injection from patient left join ward on patient.ward_id = ward.ward_id where number_injection != 0 and ward.name = '"+ addr + "';";
                 ObservableList<User> userList = FXCollections.observableArrayList();
                 ResultSet userPatient = getDeclare(queryStr1);
                 User abc;
@@ -182,8 +184,9 @@ public class ListPatientController implements Initializable {
             // bang 2 la chua duoc tiem mui nao
 
             try {
-                String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, address, number_injection from patient where number_injection = 0 and address = '"+ addr + "';";
                 ObservableList<User> userList = FXCollections.observableArrayList();
+                String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, ward.name as address, number_injection from patient left join ward on patient.ward_id = ward.ward_id where number_injection = 0 and ward.name = '"+ addr + "';";
+
                 ResultSet userPatient = getDeclare(queryStr1);
                 User abc;
                 while(userPatient.next()){
@@ -220,7 +223,9 @@ public class ListPatientController implements Initializable {
     @FXML
     public void showAllPatient(){
         try {
-            String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, address, number_injection from patient where number_injection != 0;";
+//            String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, address, number_injection from patient where number_injection != 0;";
+            String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, ward.name as address, number_injection from patient  left join ward on patient.ward_id = ward.ward_id where number_injection != 0;";
+
             ObservableList<User> userList = FXCollections.observableArrayList();
             ResultSet userPatient = getDeclare(queryStr1);
             User abc;
@@ -259,7 +264,9 @@ public class ListPatientController implements Initializable {
         // bang 2 la chua duoc tiem mui nao
 
         try {
-            String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, address, number_injection from patient where number_injection = 0;";
+//            String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, address, number_injection from patient where number_injection = 0;";
+            String queryStr1 = "select first_name || ' ' || last_name as name, pat_id, gender, mail, ward.name as address, number_injection from patient  left join ward on patient.ward_id = ward.ward_id where number_injection = 0;";
+
             ObservableList<User> userList = FXCollections.observableArrayList();
             ResultSet userPatient = getDeclare(queryStr1);
             User abc;

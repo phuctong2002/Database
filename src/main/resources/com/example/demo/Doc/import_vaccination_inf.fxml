@@ -15,12 +15,10 @@
    <children>
       <TableView fx:id="table" onMouseClicked="#getSelected" prefHeight="660.0" prefWidth="800.0">
         <columns>
-            <TableColumn fx:id="id" prefWidth="93.0" text="ID" />
-          <TableColumn fx:id="NamePat" minWidth="8.0" prefWidth="154.0" text="Name" />
-            <TableColumn fx:id="dob" prefWidth="128.0" text="DOB" />
-            <TableColumn fx:id="address" prefWidth="149.0" text="Address" />
-            <TableColumn fx:id="NameVaccine" prefWidth="117.0" text="Vaccine" />
-            <TableColumn fx:id="NthInjection" prefWidth="158.0" text="Nth Injection" />
+            <TableColumn fx:id="id" prefWidth="189.0" text="ID" />
+          <TableColumn fx:id="NamePat" minWidth="8.0" prefWidth="192.0" text="Name" />
+            <TableColumn fx:id="dob" prefWidth="161.0" text="DOB" />
+            <TableColumn fx:id="address" prefWidth="257.0" text="Address" />
         </columns>
       </TableView>
       <VBox layoutX="800.0" prefHeight="660.0" prefWidth="270.0">
@@ -72,17 +70,7 @@
                         <Insets left="20.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="NameVaccineText" layoutX="20.0" layoutY="40.0" prefHeight="26.0" prefWidth="250.0" />
-               </children>
-            </Pane>
-            <Pane prefHeight="100.0" prefWidth="270.0">
-               <children>
-                  <Label prefHeight="40.0" prefWidth="270.0" text="Nth Injection">
-                     <padding>
-                        <Insets left="20.0" />
-                     </padding>
-                  </Label>
-                  <TextField fx:id="NthInjectionText" layoutX="20.0" layoutY="40.0" prefHeight="26.0" prefWidth="250.0" />
+                  <ComboBox fx:id="vaccine" layoutX="20.0" layoutY="40.0" prefHeight="30.0" prefWidth="250.0" />
                </children>
             </Pane>
             <Pane prefHeight="60.0" prefWidth="270.0">

@@ -18,9 +18,16 @@ public class HelloApplication extends Application {
     public static String pass = "";
 
     public static int num = 0;
+
+    // sau khi lam xong co the bo di nhe
     public static String address = "";
-    public static String gender = "";
     public static String hospital = "";
+    // sau khi fix xong co the bo di nhe
+
+    public static String gender = "";
+    public static String ward_id = "";
+    public static String ward_name = "";
+    public static String hos_id = "";
 
     public static Stage window = null;
     public static Scene scene = null;

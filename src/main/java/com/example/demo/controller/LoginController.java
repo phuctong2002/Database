@@ -52,7 +52,7 @@ public class LoginController {
                         HelloApplication.last_name = user.getString("last_name");
                         HelloApplication.address = user.getString("address");
                         HelloApplication.gender = user.getString("gender");
-
+                        HelloApplication.hos_id = user.getString("hos_id");
                         HelloApplication.fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Doc/doctor.fxml"));
                         HelloApplication.scene = new Scene(HelloApplication.fxmlLoader.load());
 
@@ -111,7 +111,7 @@ public class LoginController {
                 String queryStr = "select * from patient where mail = '" + loginTextField.getText() + "';";
 
                 user = DB.dbExecuteQuery(queryStr);
-                String hos_id = null;
+                String ward_id = null;
                 if (user.next()) {
                     String a;
                     String b;
@@ -124,12 +124,14 @@ public class LoginController {
                         HelloApplication.id = user.getString("pat_id");
                         HelloApplication.dob = user.getString("dob");
                         HelloApplication.pass = user.getString("password");
-                        HelloApplication.address = user.getString("address");
+//                        HelloApplication.address = user.getString("address");
+                        ward_id = user.getString("ward_id");
+                        HelloApplication.ward_id = ward_id;
                         HelloApplication.gender = user.getString("gender");
                         HelloApplication.first_name = user.getString("first_name");
                         HelloApplication.last_name = user.getString("last_name");
                         HelloApplication.num = user.getInt("number_injection");
-                        hos_id = user.getString("hos_id");
+
 
 
                         HelloApplication.fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("UserPage.fxml"));
@@ -147,11 +149,11 @@ public class LoginController {
                 } else {
                     AlertBox.displayAlert("Email hoac mat khau khong chinh xac");
                 }
-                if( hos_id != null){
-                    queryStr = "select name from hospital where hos_id ='"+hos_id+"';";
+                if( ward_id != null){
+                    queryStr = "select name from ward where ward_id ='"+ward_id+"';";
                     user = DB.dbExecuteQuery( queryStr);
                     if( user.next()){
-                        HelloApplication.hospital = user.getString("name");
+                        HelloApplication.ward_name = user.getString("name");
                     }
                 }
             }

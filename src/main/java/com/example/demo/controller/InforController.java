@@ -37,8 +37,7 @@ public class InforController implements Initializable {
     public DatePicker dobInfor;
     @FXML
     public ComboBox<String> addressInfor;
-    @FXML
-    public ComboBox<String> hospitalInfor;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         genderInfor.getItems().addAll("Male", "Female");
@@ -49,9 +48,9 @@ public class InforController implements Initializable {
                 "Nguyen Du", "Pham Dinh Ho", "Cau Den", "Pho Hue", "Bach Khoa", "Vinh Tuy", "Thanh Luong",
                 "Bach Dang", "Dong Mac", "Thanh Nhan", "Dong Nhan"
         };
-        hospitalInfor.getItems().addAll(hospital);
+
         addressInfor.getItems().addAll( address);
-        nameInfor.setText( first_name);
+        nameInfor.setText( HelloApplication.first_name);
         idInfor.setText( HelloApplication.last_name);
         mailInfor.setText( email);
         passInfor.setText( HelloApplication.pass);
@@ -63,8 +62,8 @@ public class InforController implements Initializable {
             genderInfor.setValue("Female");
 
         }
-        addressInfor.setValue( HelloApplication.address);
-        hospitalInfor.setValue( HelloApplication.hospital);
+        addressInfor.setValue( HelloApplication.ward_name);
+//        hospitalInfor.setValue( HelloApplication.hospital);
         dobInfor.setValue(LocalDate.parse(HelloApplication.dob));
     }
     @FXML
@@ -81,35 +80,35 @@ public class InforController implements Initializable {
         else gd = "F";
         String dob = String.valueOf(dobInfor.getValue());
         String address = addressInfor.getValue();
-        String hospital = hospitalInfor.getValue();
-        String hos_id = null;
+//        String hospital = hospitalInfor.getValue();
+        String ward_id = null;
 //        System.out.println( name + " " + gd + " " + dob + " " + address + " " + hospital);
-        String query = "select hos_id from hospital where name = '" +   hospital +"';" ;
+        String query = "select ward_id from ward where name = '" +   address +"';" ;
         ResultSet hos = null;
         try {
             hos = DB.dbExecuteQuery(query);
             if( hos.next()) {
-                hos_id = hos.getString( "hos_id");
+                ward_id = hos.getString( "ward_id");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        System.out.println( hos_id);
-        query = "update patient set hos_id='"+hos_id+"', first_name='"+name+"', last_name='"+id+"', mail='"+ mail+"', dob = '" + dob+"',gender='" + gd+"', password='"+ pass +"', address='"+address+"' where pat_id='"+ HelloApplication.id+"';";
+//        System.out.println( hos_id);
+        query = "update patient set ward_id='"+ward_id+"', first_name='"+name+"', last_name='"+id+"', mail='"+ mail+"', dob = '" + dob+"',gender='" + gd+"', password='"+ pass +"' where pat_id='"+ HelloApplication.id+"';";
         try {
             int a =DB.dbExecuteUpdate(query);
             if( a== 0){
                 AlertBox.displayAlert("Cap nhat thong tin thanh cong");
                 btnSubmitInfor.setDisable( true);
                 // set het tat ca cac gia tri vao day nhe anh em
-                first_name = name;
+                HelloApplication.first_name = name;
                 HelloApplication.last_name = id;
                 HelloApplication.email = mail;
                 HelloApplication.dob = dob;
                 HelloApplication.gender = (String) genderInfor.getValue();
-                HelloApplication.address = address;
+                HelloApplication.ward_name = address;
                 HelloApplication.pass = pass;
                 HelloApplication.name = first_name + " " + last_name;
 

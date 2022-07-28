@@ -74,7 +74,8 @@ public class StatisticController implements Initializable {
 
     }
     private ResultSet getDeclare() throws SQLException, ClassNotFoundException{
-        String queryStr = "SELECT    first_name || ' ' || last_name as name, d.pat_id, address, symptom_14_days, contact, contact_foreign, contact_symptom FROM (( SELECT * FROM declaration WHERE (date(time_declare) - CURRENT_DATE )::INTEGER  <= 14)  AS d LEFT JOIN patient ON d.pat_id = patient.pat_id ) ;";
+//        String queryStr = "SELECT    first_name || ' ' || last_name as name, d.pat_id, ward.name as address, symptom_14_days, contact, contact_foreign, contact_symptom FROM (( SELECT * FROM declaration WHERE (date(time_declare) - CURRENT_DATE )::INTEGER  <= 14)  AS d LEFT JOIN patient ON d.pat_id = patient.pat_id ) as c inner join ward on ward.ward_id = c.ward_id;";
+        String queryStr = "SELECT first_name || ' ' || last_name as name, patient.pat_id,ward.name as address, symptom_14_days, contact, contact_foreign, contact_symptom FROM (SELECT * FROM declaration WHERE (date(time_declare) - CURRENT_DATE)::INTEGER <= 14) AS d LEFT JOIN patient ON d.pat_id = patient.pat_id inner join ward on ward.ward_id = patient.ward_id;";
         ResultSet a = null;
         try{
             a = DB.dbExecuteQuery(queryStr);

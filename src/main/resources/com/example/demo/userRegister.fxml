@@ -26,18 +26,16 @@
                   <DatePicker fx:id="dob" layoutX="212.0" layoutY="157.0" prefHeight="31.0" prefWidth="280.0" />
                   <TextField fx:id="mailTextField" layoutX="212.0" layoutY="210.0" prefHeight="31.0" prefWidth="280.0" />
                   <ComboBox fx:id="addressComboBox" layoutX="212.0" layoutY="260.0" prefHeight="31.0" prefWidth="280.0" />
-                  <ComboBox fx:id="hopistalComboBox" layoutX="212.0" layoutY="313.0" prefHeight="31.0" prefWidth="280.0" />
                   <PasswordField fx:id="passwordField" layoutX="212.0" layoutY="364.0" prefHeight="31.0" prefWidth="280.0" />
                   <TextField fx:id="firstNameText" layoutX="212.0" layoutY="-1.0" prefHeight="31.0" prefWidth="280.0" />
                   <Label layoutX="51.0" layoutY="42.0" prefHeight="42.0" prefWidth="110.0" style="-fx-padding: 8 0;" text="Last Name" />
                   <Label layoutX="50.0" layoutY="98.0" style="-fx-padding: 8 0;" text="Gender" />
                   <Label layoutX="50.0" layoutY="154.0" style="-fx-padding: 8 0;" text="Dob" />
                   <Label layoutX="50.0" layoutY="257.0" style="-fx-padding: 8 0;" text="Address" />
-                  <Label layoutX="51.0" layoutY="310.0" style="-fx-padding: 8 0;" text="Hospital" />
                   <Label layoutX="50.0" layoutY="207.0" style="-fx-padding: 8 0;" text="Mail" />
                   <Label layoutX="50.0" layoutY="-4.0" prefHeight="32.0" prefWidth="112.0" style="-fx-padding: 8 0 8 0;" text="Frist Name" />
-                  <Label layoutX="47.0" layoutY="413.0" text="Identity Nummber" />
-                  <TextField fx:id="idNumber" layoutX="212.0" layoutY="408.0" prefHeight="31.0" prefWidth="280.0" />
+                  <Label layoutX="45.0" layoutY="326.0" text="Identity Nummber" />
+                  <TextField fx:id="idNumber" layoutX="212.0" layoutY="311.0" prefHeight="31.0" prefWidth="280.0" />
                </children>
             </Pane>
             <Button layoutX="385.0" layoutY="593.0" mnemonicParsing="false" onAction="#registerAction" prefHeight="31.0" prefWidth="87.0" text="Register" />
